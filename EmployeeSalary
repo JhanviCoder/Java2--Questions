@@ -1,0 +1,89 @@
+import java.io.*;
+
+abstract class Employee {
+    int employeeId;
+    String employeeName;
+    double basicSalary;
+
+      Employee(){
+        employeeId = 0;
+        employeeName = "Null";
+        basicSalary = 0.0;
+}
+
+Employee(int id, String name, double salary) {
+        employeeId = id;
+        employeeName = name;
+        basicSalary = salary;
+    }
+
+abstract double calculateSalary();
+
+void displayDetails() {
+        System.out.println("Employee ID: " + employeeId);
+        System.out.println("Employee Name: " + employeeName);
+        System.out.println("Basic Salary: " + basicSalary);
+    }
+}
+
+class PermanentEmployee extends Employee {
+
+    PermanentEmployee(){
+       super();
+    }
+
+    PermanentEmployee(int id, String name, double salary) {
+        super(id, name, salary);
+    }
+
+ double calculateSalary() {
+        double hra = 0.20 * basicSalary;
+        double da = 0.40 * basicSalary;
+        double pf = 0.12 * basicSalary;
+
+        double grossSalary = basicSalary + hra + da;
+        double netSalary = grossSalary - pf;
+
+        return netSalary;
+    }
+}
+
+class ContractEmployee extends Employee {
+    ContractEmployee(){
+       super();
+    }
+
+    ContractEmployee(int id, String name, double salary) {
+        super(id, name, salary);
+    }
+
+     double calculateSalary() {
+        double allowance = 0.10 * basicSalary;
+        double grossSalary = basicSalary + allowance;
+
+        return grossSalary;
+    }
+}
+
+public class EmployeeSalary {
+    public static void main(String[] args) {
+
+        Employee e;
+        e = new PermanentEmployee(156, "Jhanvi", 5086469);
+
+        System.out.println("PERMANENT EMPLOYEE");
+        e.displayDetails();
+        System.out.println("Net Salary: " + e.calculateSalary());
+
+        System.out.println();
+
+        e = new ContractEmployee(195, "Priya", 30753789);
+
+        System.out.println("CONTRACT EMPLOYEE");
+        e.displayDetails();
+        System.out.println("Salary: " + e.calculateSalary());
+    }
+}
+
+
+
